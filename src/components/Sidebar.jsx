@@ -1,10 +1,30 @@
-const Navbar = () => {
+import { NavLink, Link } from 'react-router-dom';
+
+const Sidebar = () => {
+  const navItems = [
+    {
+      href: "/contacts",
+      label: "دسته بندی ها",
+      activated: ({ isActive }) => [
+        "nav-link",
+        isActive ? "active" : ""
+      ].join(' ')
+    },
+    {
+      href: "/contact/add",
+      label: "ایجاد دسته بندی",
+      activated: ({ isActive }) => [
+        "nav-link",
+        isActive ? "active" : ""
+      ].join(' ')
+    },
+  ];
   return (
     <nav className="navbar sidebar navbar-expand-xl navbar-dark bg-dark">
       <div className="d-flex align-items-center">
-        <a className="navbar-brand" href="">
-          <span>Logo</span>
-        </a>
+        <Link to="/contacts" className="p-4 text-secondary fw-bold" style={{ fontSize: "1rem" }}>
+          <span>I Love FullStack Development</span>
+        </Link>
       </div>
 
       <div className="offcanvas offcanvas-start flex-row custom-scrollbar h-100" data-bs-backdrop="true" tabIndex="-1"
@@ -13,74 +33,26 @@ const Navbar = () => {
 
           <ul className="navbar-nav flex-column" id="navbar-sidebar">
 
-            <li className="nav-item"><a href="admin-dashboard.html" className="nav-link active"><i
-              className="bi bi-house fa-fw me-2"></i>داشبورد</a></li>
+            {Array.isArray(navItems) && navItems.length > 0 ? navItems.map((item, index) => (
+              <li className="nav-item" key={index}>
+                <NavLink to={item.href} className={item.activated}>
+                  <i className="bi bi-house fa-fw me-2"></i>
+                  {item.label}
+                </NavLink>
+              </li>
+            )) : "No Menu"}
 
-            <li className="nav-item ms-2 my-2">صفحات</li>
+            {/*<li className="nav-item ms-2 my-2">بخش محتوا</li>*/}
 
-            <li className="nav-item">
-              <a className="nav-link" data-bs-toggle="collapse" href="#collapsepage" role="button"
-                 aria-expanded="false" aria-controls="collapsepage">
-                <i className="bi bi-basket fa-fw me-2"></i>دوره ها
-              </a>
-              <ul className="nav collapse flex-column" id="collapsepage" data-bs-parent="#navbar-sidebar">
-                <li className="nav-item"><a className="nav-link" href="admin-course-list.html">لیست</a></li>
-                <li className="nav-item"><a className="nav-link" href="admin-course-category.html">دسته
-                  بندی</a></li>
-                <li className="nav-item"><a className="nav-link" href="admin-course-detail.html">جزئیات</a>
-                </li>
-              </ul>
-            </li>
-
-            <li className="nav-item"><a className="nav-link" href="admin-student-list.html"><i
-              className="fas fa-user-graduate fa-fw me-2"></i>هنرجویان</a></li>
-
-            <li className="nav-item">
-              <a className="nav-link" data-bs-toggle="collapse" href="#collapseinstructors" role="button"
-                 aria-expanded="false" aria-controls="collapseinstructors">
-                <i className="fas fa-user-tie fa-fw me-2"></i>مدرس
-              </a>
-              <ul className="nav collapse flex-column" id="collapseinstructors"
-                  data-bs-parent="#navbar-sidebar">
-                <li className="nav-item"><a className="nav-link" href="admin-instructor-list.html">لیست</a>
-                </li>
-                <li className="nav-item"><a className="nav-link" href="admin-instructor-detail.html">جزئیات</a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="admin-instructor-request.html">درخواست ها
-                    <span className="badge text-bg-success rounded-circle ms-2">2</span>
-                  </a>
-                </li>
-              </ul>
-            </li>
-
-            <li className="nav-item"><a className="nav-link" href="admin-review.html"><i
-              className="far fa-comment-dots fa-fw me-2"></i>دیدگاه ها</a></li>
-
-            <li className="nav-item"><a className="nav-link" href="admin-earning.html"><i
-              className="far fa-chart-bar fa-fw me-2"></i>درآمدها</a></li>
-
-            <li className="nav-item"><a className="nav-link" href="admin-setting.html"><i
-              className="fas fa-user-cog fa-fw me-2"></i>تنظیمات</a></li>
-
-            <li className="nav-item">
-              <a className="nav-link" data-bs-toggle="collapse" href="#collapseauthentication" role="button"
-                 aria-expanded="false" aria-controls="collapseauthentication">
-                <i className="bi bi-lock fa-fw me-2"></i>احراز هویت
-              </a>
-              <ul className="nav collapse flex-column" id="collapseauthentication"
-                  data-bs-parent="#navbar-sidebar">
-                <li className="nav-item"><a className="nav-link" href="sign-up.html">ثبت نام</a></li>
-                <li className="nav-item"><a className="nav-link" href="sign-in.html">ورود</a></li>
-                <li className="nav-item"><a className="nav-link" href="forgot-password.html">فراموشی رمز
-                  عبور</a></li>
-                <li className="nav-item"><a className="nav-link" href="admin-error-404.html">صفحه 404</a></li>
-              </ul>
-            </li>
-
-            <li className="nav-item"><a className="nav-link" href="docs/index.html"><i
-              className="far fa-clipboard fa-fw me-2"></i>کدهای کاربردی</a></li>
-
+            {/*<li className="nav-item">
+              <NavLink to="/contact/add" className={({ isActive }) => [
+                isActive ? "active" : "",
+                "nav-link"
+              ].join(' ')}>
+                <i className="bi bi-house fa-fw me-2"></i>
+                ایجاد دسته بندی
+              </NavLink>
+            </li>*/}
           </ul>
 
           <div className="px-3 mt-auto pt-3">
@@ -106,4 +78,4 @@ const Navbar = () => {
   )
 }
 
-export default Navbar;
+export default Sidebar;
